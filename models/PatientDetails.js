@@ -69,7 +69,7 @@ const Patients = sequelize.define("Patient_Details", {
   },
   deleted_at: {
     type: DataTypes.DATE,
-    allowNull: true,
+    allowNull: true, // Allow null for active records
   },
   willing_recommened_treatment_plan: {
     type: DataTypes.BOOLEAN,
@@ -96,15 +96,17 @@ const Patients = sequelize.define("Patient_Details", {
     defaultValue: false,
   },
 }, {
-  // Specify custom field names for timestamps
+  // Specify custom field names for timestamps and enable paranoid
   timestamps: true, // Enable timestamps
   createdAt: 'created_at', // Specify the custom name for createdAt
   updatedAt: 'updated_at', // Specify the custom name for updatedAt
+  deletedAt: 'deleted_at', // Specify the custom name for deletedAt
+  paranoid: true, // Enable soft deletes (will set deleted_at instead of deleting)
 });
 
 // Hook to set updated_at before updating
 Patients.beforeUpdate((patient) => {
-  patient.updated_at = new Date();
+  patient.updated_at = new Date(); // Automatically set updated_at before any update
 });
 
 module.exports = Patients;
