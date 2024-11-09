@@ -32,7 +32,7 @@ router.post("/register_patients", async (request, response) => {
     const result = await addPatients([request.body]);
     return result?.passed
       ? response.status(201).json({ message: "Patient registered successfully", data: result })
-      : response.status(400).json({ message: "Failed to register patient", errors: result?.failed });
+      : response.status(400).json({ message: "Failed to register patient", data: result});
   } catch (error) {
     console.error('Error registering patient:', error.message);
     response.status(500).json({ message: "Internal Server Error", error: error.message });

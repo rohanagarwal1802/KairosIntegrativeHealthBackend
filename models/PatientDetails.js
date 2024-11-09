@@ -53,6 +53,14 @@ const Patients = sequelize.define("Patient_Details", {
     type: DataTypes.STRING,
     allowNull: true,
   },
+  preferredProvider: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  howDidYouHear: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
   isActive: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
@@ -97,7 +105,7 @@ const Patients = sequelize.define("Patient_Details", {
   },
 }, {
   // Specify custom field names for timestamps and enable paranoid
-  timestamps: true, // Enable timestamps
+  // timestamps: true, // Enable timestamps
   createdAt: 'created_at', // Specify the custom name for createdAt
   updatedAt: 'updated_at', // Specify the custom name for updatedAt
   deletedAt: 'deleted_at', // Specify the custom name for deletedAt
