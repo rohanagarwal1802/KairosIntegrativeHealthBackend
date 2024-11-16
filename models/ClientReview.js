@@ -17,7 +17,6 @@ const ClientReview = sequelize.define("ClientReview", {
     type: DataTypes.STRING,
     allowNull: false,
   },
-
   email: {
     type: DataTypes.STRING,
     allowNull: true,
@@ -25,7 +24,7 @@ const ClientReview = sequelize.define("ClientReview", {
       isEmail: true, // Validate email format
     },
   },
-  no_of_stars: {
+  rating: {
     type: DataTypes.INTEGER,
     allowNull: true,
   },
@@ -39,14 +38,13 @@ const ClientReview = sequelize.define("ClientReview", {
   },
   created_at: {
     type: DataTypes.DATE,
-    allowNull: true,
+    allowNull: false, // To ensure it's always set
+    defaultValue: DataTypes.NOW, // Automatically sets current time when a new record is created
   },
-  
 }, {
-  // Specify custom field names for timestamps and enable paranoid
-  // timestamps: true, // Enable timestamps
-  createdAt: 'created_at', // Specify the custom name for createdAt
+  tableName: 'ClientReview', // Ensure the table name matches the database
+  createdAt: 'created_at', // Custom column name for createdAt
+  updatedAt: false, // Disable the updatedAt field since it doesn't exist in the table
 });
-
 
 module.exports = ClientReview;

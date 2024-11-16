@@ -1,5 +1,6 @@
 const express = require('express');
-const Patients = require('../models/PatientDetails'); // Adjust path as necessary
+const Patients = require('../models/PatientDetails');
+const ClientReview = require("../models/ClientReview"); // Adjust path as necessary
 const router = express.Router();
 const requireAll = require("require-all");
 const path = require("path");
@@ -39,6 +40,35 @@ router.post("/register_patients", async (request, response) => {
   }
 });
 
-// Add other routes as necessary
+// Example route to get all reviews
+router.get('/reviews', async (req, res) => {
+  try {
+    const reviews = await ClientReview.findAll(); // Fetch all reviews from the database
+    return res.status(200).json({
+      message: "Reviews Generated Successfully.",
+      reviews: reviews
+    });  // Sending the reviews as a JSON response
+  } catch (error) {
+    console.error('Error fetching reviews:', error.message);
+    res.status(500).json({ error: error.message });  // Handling errors with a 500 status
+  }
+});
+
+//Add Reviews.
+router.post("/reviews", async (request, response) => {
+  const addReviews = allQuery["addReviews"];
+  if (!addReviews) {
+    return response.status(500).json({ message: "addReviews function not found." });
+  }
+  
+  try {
+    const result = await addReviews(request.body);
+    return result
+  } catch (error) {
+    console.error('Error registering patient:', error.message);
+    response.status(500).json({ message: "Internal Server Error", error: error.message });
+  }
+});
+
 
 module.exports = router;
